@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>SVG Image Viewer</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Viewer for SVG images">
+    <meta name="keywords" content="SVG">
+    <meta name="author" content="Ryan Thring">
+    <!-- Load jquery, bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <!-- Custom CSS End -->
+    <style>
+      table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+      div.scroll {
+        height: 500px;
+        width: 800px;
+        overflow-y: auto;
+        overflow-x: auto;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="scroll">
+      <table style="width:100%"
+      id='fileLogTable'>
+        <tr>
+          <colgroup>
+            <col width="200">
+            <col span="6" width="100">
+          </colgroup>
+          <th>Image (click to download)</th>
+          <th>File name (click to download)</th>
+          <th>File size</th>
+          <th>Number of Rectangles</th>
+          <th>Number of circles</th>
+          <th>Number of paths</th>
+          <th>Number of groups</th>
+        </tr>
+      </table>
+    </div>
+
+    <form method='post' action='/upload' encType="multipart/form-data">
+      <label for="uploadFile">Select a file to upload:</label>
+      <input type="file" id="uploadFile" name="uploadFile" required> <br>
+      <input type="submit" value="Upload">
+    </form>
+
+    <br>
+    <form ref='createform' id='createform'>
+      <label for="createfilename">Enter a name here and submit to create a SVG file:</label>
+      <input type='text' id='createfilename' value="">
+      <input type='submit' value="Create file">
+    </form>
+    <br>
+    <form ref='fileselect'
+          id='fileselect'>
+          <div class="form-group">
+            <label for="dropdownsvgs">Select a SVG to view:</label>
+            <select id="dropdownsvgs" required>
+              <option value="">None</option>
+            </select>
+            </div>
+        <div class="form-group">
+            <input type='submit' value="Submit">
+        </div>
+    </form>
+    <p></p>
+    <p id='fileviewname'></p>
+    <table style="width:100%"
+    id='fileViewTable'>
+      <tr>
+        <td colspan="2" id='imagedisplay'></td>
+      </tr>
+      <tr>
+        <colgroup>
+          <col span="2" width="100">
+        </colgroup>
+        <th>Title</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td id='title'> </td>
+        <td id='description'></td>
+      </tr>
+    </table>
+    <div class="scroll">
+      <table id='svgcomponents'>
+        <tr>
+          <colgroup>
+            <col width="300">
+            <col width="600">
+            <col width="300">
+          </colgroup>
+          <th>Component</th>
+          <th>Summary</th>
+          <th>Other Attributes</th>
+        </tr>
+      </table>
+    </div>
+    <div id='edittitleanddesc'> </div>
+    <form ref='elementselect'
+          id='elementselect'>
+          <div class="form-group">
+            <label for="dropdownelements">Select an element to show its attributes:</label>
+            <select id="dropdownelements" required>
+              <option value="">None</option>
+            </select>
+            </div>
+        <div class="form-group">
+            <input type='submit' value="Submit">
+        </div>
+    </form>
+    <p id='elementviewname'></p>
+    <div id='attributeview'> </div>
+    <form ref='shapeselect' id='shapeselect'>
+        <label for="dropdownshapes">Select a shape to add or scale:</label>
+        <select id="dropdownshapes" required>
+          <option value="">None</option>
+          <option value="Rectangle">Rectangle</option>
+          <option value="Circle">Circle</option>
+        </select>
+        <div class="form-group">
+            <input type='submit' id='add' value="Add">
+            <input type='submit' id='scale' value="Scale">
+        </div>
+    </form>
+    <div id='scaleoradd'> </div>
+    <!-- Leave me at the bottom of body -->
+    <script src="/index.js"></script>
+</body>
+</html>
